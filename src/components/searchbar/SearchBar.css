@@ -1,0 +1,342 @@
+figcaption,
+figure,
+main {
+  /* 1 */
+  display: block;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+a {
+  background-color: transparent;
+  /* 1 */
+  -webkit-text-decoration-skip: objects;
+  /* 2 */
+}
+
+img {
+  border-style: none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+[hidden] {
+  display: none;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  -webkit-padding-before: 0;
+  -webkit-padding-start: 0;
+  -webkit-padding-end: 0;
+  -webkit-padding-after: 0;
+  border: 0;
+}
+
+legend {
+  margin: 0;
+  padding: 0;
+  display: block;
+  -webkit-padding-start: 0;
+  -webkit-padding-end: 0;
+}
+
+.choices {
+  position: relative;
+  margin-bottom: 24px;
+  font-size: 16px;
+}
+
+.choices:focus {
+  outline: none;
+}
+
+.choices:last-child {
+  margin-bottom: 0;
+}
+
+.choices.is-disabled .choices__inner,
+.choices.is-disabled .choices__input {
+  background-color: #eaeaea;
+  cursor: not-allowed;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.choices__inner {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 7.5px 7.5px 3.75px;
+  border: 1px solid #dddddd;
+  border-radius: 2.5px;
+  font-size: 14px;
+  min-height: 44px;
+  overflow: hidden;
+}
+
+.choices__input {
+  display: inline-block;
+  vertical-align: baseline;
+  background-color: #f9f9f9;
+  font-size: 14px;
+  margin-bottom: 5px;
+  border: 0;
+  border-radius: 0;
+  max-width: 100%;
+  padding: 4px 0 4px 2px;
+}
+
+.choices__input:focus {
+  outline: 0;
+}
+
+[dir="rtl"] .choices__input {
+  padding-right: 2px;
+  padding-left: 0;
+}
+
+.choices__placeholder {
+  opacity: 0.5;
+}
+
+.search-bar {
+  min-height: 100vh;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  background: url("../../assets/images/github-img.png");
+  height: 76px;
+  background-size: cover;
+  background-position: center center;
+  padding: 15px;
+}
+
+.search-bar form {
+  width: 100%;
+  max-width: 790px;
+}
+
+.search-bar form legend {
+  font-size: 36px;
+  color: #41464b;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.search-bar form .inner-form {
+  width: 100%;
+  margin-bottom: 17px;
+}
+
+.search-bar form .inner-form .input-field {
+  width: 100%;
+  position: relative;
+}
+
+.search-bar form .inner-form .input-field .choices {
+  margin-bottom: 0;
+}
+
+.search-bar form .inner-form .input-field .choices .choices__inner {
+  min-height: 70px;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  background: #fff;
+  display: block;
+  width: 100%;
+  padding: 10px 70px 10px 32px;
+  font-size: 18px;
+  color: #666;
+  border-radius: 34px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.search-bar
+  form
+  .inner-form
+  .input-field
+  .choices
+  .choices__inner
+  .choices__item {
+  background: #e7e7e7;
+  color: #333;
+  line-height: 33px;
+  border: 0;
+  padding: 0 20px;
+  font-size: 16px;
+}
+
+.search-bar
+  form
+  .inner-form
+  .input-field
+  .choices
+  .choices__inner
+  .choices__item {
+  border-left: 0;
+  color: #b2b2b2;
+  background-size: 14px auto;
+  padding-left: 0;
+  opacity: 0.3;
+  transition: all 0.2s ease-out, color 0.2s ease-out;
+}
+
+.search-bar
+  form
+  .inner-form
+  .input-field
+  .choices
+  .choices__inner
+  .choices__item
+  .choices__button:hover {
+  opacity: 1;
+}
+
+.search-bar
+  form
+  .inner-form
+  .input-field
+  .choices
+  .choices__inner
+  .choices__input {
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+  margin-bottom: 0;
+}
+
+.search-bar form .inner-form .input-field .choices .choices__item {
+  font-size: 13px;
+  height: 25px;
+  line-height: 1.3;
+  padding: 0;
+  padding-top: 5px;
+  opacity: 0.7;
+}
+
+.search-bar form .inner-form .input-field .btn-search {
+  width: 70px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar form .inner-form .input-field .btn-search svg {
+  fill: #333;
+  width: 40px;
+  height: 40px;
+  transition: all 0.2s ease-out, color 0.2s ease-out;
+}
+
+.search-bar form .inner-form .input-field .btn-search:hover,
+.search-bar form .inner-form .input-field .btn-search:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.search-bar form .suggestion-wrap {
+  padding: 0 15px;
+}
+
+.search-bar form .suggestion-wrap span {
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "Helvetica", sans-serif;
+  display: inline-block;
+  padding: 0 15px;
+  line-height: 32px;
+  color: #41464b;
+  border-radius: 16px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: #f8faff;
+}
