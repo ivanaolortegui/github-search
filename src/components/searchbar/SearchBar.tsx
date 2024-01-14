@@ -1,22 +1,22 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { helpHttp } from "../../helpers/helpHttp";
 import Results from "../results/Results";
 import { SearchBarProps } from "../interface/SearchInterface";
 import "./SearchBar.css";
-import { Link } from "react-router-dom";
 
-const SearchBar = ({ typeSearch }: SearchBarProps): JSX.Element => {
+const SearchBar : React.FC<SearchBarProps> = ({ typeSearch }: SearchBarProps) => {
   const [value, setValue] = useState("");
-  const [results, setResults] = useState();
+  const [results, setResults] = useState([]);
+  const url = `https://api.github.com/search/`;
   const handleOnChange = (e: any) => {
     setValue(e.target.value);
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (value.length > 0) {
-      let url = `https://api.github.com/search/${typeSearch}?q=${value}`;
       helpHttp()
-        .get(url)
+        .get(`${url}${typeSearch}?q=${value}`)
         .then((res: any) => setResults(res.items));
     }
   };
@@ -72,17 +72,22 @@ const SearchBar = ({ typeSearch }: SearchBarProps): JSX.Element => {
               </div>
             </div>
             <div className="suggestion-wrap">
-              <Link to={typeSearch === "repositories" ? "/search-users" : "/"}>
-                <span>
-                  Search
-                  {typeSearch === "repositories" ? " users" : " repositories"}
-                </span>
-              </Link>
+            
+                   <span>
+                  <Link
+                  to={typeSearch === "repositories" ? "/search-users" : "/"}
+                >
+                    Search
+                    {typeSearch === "repositories" ? " users" : " repositories"}
+                </Link>
+                  </span > 
             </div>
           </fieldset>
         </form>
       </div>
-      {results ? <Results typeSearch={typeSearch} results={results} /> : <></>}
+    { results?.length > 0 && 
+        <Results typeSearch={typeSearch} results={results} /> 
+      }
     </div>
   );
 };

@@ -7,15 +7,15 @@ export const helpHttp = () => {
       accept: "application/json",
     };
 
-    const controller = new AbortController();
+    /* const controller = new AbortController();
     options.signal = controller.signal;
 
-    options.method = options.method || "GET";
-    options.headers = options.headers
+    options.method = options.method || "GET"; */
+    options.headers = /* options.headers
       ? { ...defaultHeader, ...options.headers }
-      : defaultHeader;
+      : */ defaultHeader;
 
-    setTimeout(() => controller.abort(), 3000);
+    // setTimeout(() => controller.abort(), 3000);
     return axios
       .get(endpoint, options)
       .then((res) =>
@@ -23,9 +23,10 @@ export const helpHttp = () => {
           ? res.data
           : Promise.reject({
             err: true,
-            status: res.status || "00",
-            statusText: res.statusText || "Ocurrió un error",
+            status: res.status,
+            statusText: res.statusText,
           })
+
       )
       .catch((err) => err);
   };

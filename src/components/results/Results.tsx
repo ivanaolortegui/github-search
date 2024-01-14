@@ -1,14 +1,15 @@
+import React from "react";
 import { ResultsProps, ResultsResponse } from "../interface/SearchInterface";
 import "./Results.css";
 
-const Results = ({ typeSearch, results }: ResultsProps): JSX.Element => {
+const Results : React.FC<ResultsProps> = ({ typeSearch, results }: ResultsProps) => {
   const pipeText = (text: string): string => {
     if (text?.length > 50) {
       return text.substring(0, 50) + "...";
     }
     return text;
+    //enum Ivana { User, Repo}
   };
-
   return (
     <div className="ftco-section results-section bg-light">
       <div className="container">

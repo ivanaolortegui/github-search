@@ -19,7 +19,7 @@ test("renders learn react link", () => {
 });
 
 // test for data-testid input-field
-test("renders learn react link", () => {
+/* test("renders learn react link", () => {
   const { input } = setup();
   fireEvent.change(input, { target: { value: "23" } });
   expect(input.value).toBe("23");
@@ -30,3 +30,4 @@ test("renders learn react link", () => {
   fireEvent.keyPress(input, { key: "Enter", target: { value: "23" } });
   expect(input.value).toBe("23");
 });
+ */

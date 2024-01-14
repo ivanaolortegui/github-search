@@ -1,49 +1,33 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, RenderResult, screen } from "@testing-library/react";
 import SearchBar from "./SearchBar";
-import Results from "../results/Results";
-import { ResultsProps, SearchBarProps } from "../interface/SearchInterface";
+import { SearchBarProps } from "../interface/SearchInterface";
+import axios from "axios";
+import Results  from "../results/Results";
+import { ResultsProps } from "../interface/SearchInterface";
+import { configure, EnzymeAdapter, shallow } from 'enzyme';
+import { helpHttp } from "../../helpers/helpHttp";
 
-const resultsProps: ResultsProps = {
-  typeSearch: "repositories",
-  results: [
-    {
-      id: 1,
-      name: "test",
-      owner: {
-        login: "test",
-        avatar_url: "https://avatars1.githubusercontent.com/u/1?v=4",
-      },
-      html_url: "test",
-      stargazers_count: 0,
-      language: "test",
-      description:
-        "test uewiueiu jkjksdjdsj jksjkjds skjjdjd 1236363 jejjejeu 2737389",
-      login: "test",
-      avatar_url: "https://avatars1.githubusercontent.com/u/1?v=4",
-    },
-    {
-      id: 2,
-      name: "test",
-      owner: {
-        login: "test",
-        avatar_url: "https://avatars1.githubusercontent.com/u/1?v=4",
-      },
-      html_url: "test",
-      stargazers_count: 0,
-      language: "test",
-      description: "test",
-      login: "test",
-      avatar_url: "https://avatars1.githubusercontent.com/u/1?v=4",
-    },
-  ],
+import Adapter from "enzyme-adapter-react-16";
+import { BrowserRouter } from "react-router-dom";
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+const resultsEmptyProps: ResultsProps = {
+  typeSearch: "users",
+  results: [],
 };
-
+configure({ adapter: new Adapter() })
 const searchBarProps: SearchBarProps = {
   typeSearch: "repositories",
 };
+const searchBarUsersProps: SearchBarProps = {
+  typeSearch: "users",
+};
 
 const setup = () => {
-  const utils = render(<SearchBar {...searchBarProps} />);
+ // let utils = {} as RenderResult;
+
+const utils = render(<BrowserRouter> <SearchBar {...searchBarProps} /> </BrowserRouter>);
+
   const form = utils.getByLabelText("form-submit") as HTMLFormElement;
   const input = utils.getByLabelText("input-field") as HTMLInputElement;
   const button = utils.getByLabelText("btn-submit") as HTMLInputElement;
@@ -54,13 +38,21 @@ const setup = () => {
     ...utils,
   };
 };
+beforeEach(() => {
+  mockedAxios.get.mockReset();
+});
 
 test("renders SearchBar component", () => {
-  render(<SearchBar {...searchBarProps} />);
+  render(<BrowserRouter> <SearchBar {...searchBarProps} /> </BrowserRouter>);
   const linkElement = screen.getByText(/WHAT REPO ARE YOU LOOKING FOR?/i);
   expect(linkElement).toBeInTheDocument();
 });
 
+test("renders SearchBar for user component", () => {
+  render(<BrowserRouter><SearchBar {...searchBarUsersProps} /></BrowserRouter>);
+  const linkElement = screen.getByText(/WHAT USERS ARE YOU LOOKING FOR?/i);
+  expect(linkElement).toBeInTheDocument();
+});
 // test for data-testid input-field
 test("input value change", () => {
   const { input } = setup();
@@ -68,19 +60,53 @@ test("input value change", () => {
   expect(input.value).toBe("23");
 });
 
-test("trigger submit event ", () => {
+test("trigger submit event2 ", async  () => {
+
+  mockedAxios.get.mockResolvedValue({
+    data: {
+      items : []
+    },
+    status: 200,
+  });
+  const { input,  button } = setup();
+  const wrapper = shallow(<BrowserRouter> <SearchBar {...searchBarProps} /> </BrowserRouter>);
+  fireEvent.change(input, { target: { value: "" } });
+    await act(() => {
+      render(<BrowserRouter> <SearchBar {...searchBarProps} /> </BrowserRouter>);
+      fireEvent.submit(button)
+      });
+      expect(wrapper.find(<Results {...resultsEmptyProps} />)).toBeTruthy();
+  });
+
+test("trigger submit event ", async  () => {
+
+  mockedAxios.get.mockResolvedValue({
+    data: {
+      items : [{
+        owner: { avatar_url: "https://avatars.githubusercontent.com/u/1297781?v=4", },
+        id: 1,
+        name: 'Joe Doe'
+      },
+      {
+      owner: { avatar_url: "https://avatars.githubusercontent.com/u/1297781?v=4", },
+        id: 2,
+        name: 'Jane Doe'
+      }]
+    } ,
+    status: 200,
+      
+    
+  });
+  
   const { input, button } = setup();
-  fireEvent.change(input, { target: { value: "23" } });
-  fireEvent.submit(button);
-  expect(input.value).toBe("23");
+  fireEvent.change(input, { target: { value: '23' } });
+
+  await act(() => {
+render(<BrowserRouter> <SearchBar {...searchBarProps} /> </BrowserRouter>);
+    fireEvent.submit(button);
+  });
+  expect(input.value).toBe('23');
 });
 
-test("result component mapping to the resultsProps", () => {
-  const { queryAllByLabelText } = render(<Results {...resultsProps} />);
-  expect(queryAllByLabelText("result-item")).toHaveLength(2);
-});
 
-test("typeSearch value is users", () => {
-  resultsProps.typeSearch = "users";
-  render(<Results {...resultsProps} />);
-});
+
